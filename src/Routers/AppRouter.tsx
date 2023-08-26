@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Dimensions } from "react-native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,8 +20,7 @@ function MyTabs() {
           backgroundColor: '#fff',
           position: 'absolute',
           bottom: 15,
-          left: 15,
-          right: 15,
+          marginHorizontal: Dimensions.get('window').width / 10,
           borderRadius: 15,
           height: 60,
         }
@@ -50,7 +50,7 @@ function MyTabs() {
         component={Favorite}
         options={{
           tabBarIcon: ({ focused, size }) => {
-            return focused ? (<Ionicons name="ios-heart" size={size + 10} color="#191D88" />)
+            return focused ? (<Ionicons name="ios-heart" size={size + 10} color="#FF2E63" />)
               : (<Ionicons name="ios-heart-outline" size={size} color="black" />)
           }
         }} />

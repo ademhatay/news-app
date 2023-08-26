@@ -13,7 +13,6 @@ const HomeScreen: FC<Props> = ({navigation}) => {
         <Text>
           Hello HOme Screen
         </Text>
-        <Button title="Go to Settings" onPress={() => navigation.navigate('MyDrawer', {screen: 'Settings'})} />
       </View>
     </Screen>
   </>
