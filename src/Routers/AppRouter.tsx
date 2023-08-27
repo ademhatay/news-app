@@ -1,4 +1,4 @@
-import { Favorite, Home, Search, Settings } from "../Screens";
+import { Favorite, Home, Search, Settings, Details } from "../Screens";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -26,8 +26,8 @@ function MyTabs() {
         }
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="MyStack"
+        component={MyStack}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
             return focused ? (<Ionicons name="ios-home" size={size + 10} color="#191D88" />)
@@ -60,7 +60,7 @@ function MyTabs() {
         component={Settings}
         options={{
           title: 'Settings',
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused, size }) => {
             return focused ? (<Ionicons name="ios-settings" size={size + 10} color="#191D88" />)
               : (<Ionicons name="ios-settings-outline" size={size} color="black" />)
           }
@@ -71,15 +71,16 @@ function MyTabs() {
 
 function MyStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MyTabs" component={MyTabs} />
+    <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
 
 
 const AppRouter = () => {
-  return <MyStack />
+  return <MyTabs />
 }
 
 export default AppRouter

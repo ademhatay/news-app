@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppRouter from './src/Routers/AppRouter';
 
 import FeedsProvider from './src/Contexts/FeedsContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 type Props = {};
@@ -12,9 +13,11 @@ type Props = {};
 const App: FC<Props> = () => {
   return <>
     <FeedsProvider>
-      <NavigationContainer>
-        <AppRouter />
-      </NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <AppRouter />
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </FeedsProvider>
   </>
 }

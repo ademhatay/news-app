@@ -2,6 +2,9 @@ import { createContext, useContext, useState, FC, useEffect } from "react";
 import { data } from "./data";
 
 
+
+// i use any type everywhere because i don't have time to write types for this project
+// this error type is not important for now.
 const Context = createContext();
 
 
@@ -12,11 +15,14 @@ type Props = {
 const Provider: FC<Props> = ({ children }) => {
 
 	const [feeds, setFeeds] = useState(data);
+	const [favorites, setFavorites] = useState([]);
 
 
 	const values = {
 		feeds,
-		setFeeds
+		setFeeds,
+		favorites,
+		setFavorites
 	}
 
 	return (
