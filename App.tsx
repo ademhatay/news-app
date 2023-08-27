@@ -4,14 +4,18 @@ import React, { FC } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppRouter from './src/Routers/AppRouter';
 
+import FeedsProvider from './src/Contexts/FeedsContext';
+
 
 type Props = {};
 
 const App: FC<Props> = () => {
   return <>
-    <NavigationContainer>
-      <AppRouter />
-    </NavigationContainer>
+    <FeedsProvider>
+      <NavigationContainer>
+        <AppRouter />
+      </NavigationContainer>
+    </FeedsProvider>
   </>
 }
 

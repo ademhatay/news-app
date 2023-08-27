@@ -2,6 +2,8 @@ import { ReactNode, FC } from 'react'
 import { SafeAreaView, StyleSheet, Platform } from 'react-native'
 import Constants from 'expo-constants';
 import { Header } from '../Components';
+import { useNavigation } from '@react-navigation/native';
+
 
 const styles = StyleSheet.create({
 	screen: {
@@ -17,9 +19,10 @@ type Props = {
 
 
 const Screen: FC<Props> = ({ children, style }) => {
+	const navigation = useNavigation()
 	return <>
 		<SafeAreaView style={[styles.screen, style]}>
-			<Header />
+			<Header navigation={navigation} />
 			{children}
 		</SafeAreaView>
 	</>
