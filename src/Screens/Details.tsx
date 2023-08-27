@@ -26,7 +26,7 @@ const Details: FC<Props> = ({ route, navigation }) => {
                             {item.feed ? item.feed : item?.desc ? item?.desc : 'No description'}
                         </Text>
                         <View style={generalStyles.bottomContainer}>
-                            <Image source={require('../assets/pp.png')} style={{ width: 32, height: 32 }} />
+                            <Image source={{uri: item?.authorImage}} style={{ width: 32, height: 32, resizeMode:'contain' }} />
                             <Text style={generalStyles.authorTitle}>
                                 {item?.author}
                             </Text>

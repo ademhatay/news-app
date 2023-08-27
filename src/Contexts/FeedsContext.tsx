@@ -1,6 +1,4 @@
 import { createContext, useContext, useState, FC, useEffect } from "react";
-import { data } from "./data";
-
 
 
 // i use any type everywhere because i don't have time to write types for this project
@@ -14,15 +12,46 @@ type Props = {
 
 const Provider: FC<Props> = ({ children }) => {
 
-	const [feeds, setFeeds] = useState(data);
+	const [feeds, setFeeds] = useState([]);
 	const [favorites, setFavorites] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getFeeds = async () => {
+		try {
+			const response = await fetch('http://192.168.1.220:5000/api/feeds');
+			const data = await response.json();
+			setFeeds(data);
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	const searchFeeds = async (search: string) => {
+		try {
+			const response = await fetch(`http://192.168.1.220:5000/api/feeds?search=${search}`);
+			const data = await response.json();
+			setLoading(false);
+
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(() => {
+		getFeeds();
+	}, [])
 
 
 	const values = {
 		feeds,
 		setFeeds,
 		favorites,
-		setFavorites
+		setFavorites,
+		loading,
+		setLoading,
+		searchFeeds
 	}
 
 	return (

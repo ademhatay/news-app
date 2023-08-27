@@ -16,14 +16,14 @@ const BannerFeed: FC<Props> = ({ item, navigation }) => {
                 <Image source={{ uri: item.image }} style={styles.image} />
                 <View style={{ padding: 20, backgroundColor: '#000' }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('MyStack', {screen: 'Details', params: {item}})}
+                        onPress={() => navigation.navigate('MyStack', { screen: 'Details', params: { item } })}
                     >
                         <Text style={[generalStyles.title, { color: '#fff', fontSize: 30 }]}>
                             {item.title}
                         </Text>
                     </TouchableOpacity>
                     <View style={generalStyles.bottomContainer}>
-                        <Image source={require('../assets/pp.png')} style={{ width: 32, height: 32 }} />
+                        <Image source={{ uri: item?.authorImage }} style={{ width: 32, height: 32, resizeMode: 'contain' }} />
                         <Text style={[generalStyles.authorTitle, { color: '#fff' }]}>
                             {item.author}
                         </Text>

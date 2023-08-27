@@ -24,12 +24,12 @@ const MainFeeds: FC<Props> = ({ item, navigation }) => {
                 {item.desc ? item.desc : 'No description'}
             </Text>
             <View style={generalStyles.bottomContainer}>
-                <Image source={require('../assets/pp.png')} style={{ width: 32, height: 32 }} />
+                <Image source={{ uri: item?.authorImage }} style={{ width: 32, height: 32, resizeMode: 'contain' }} />
                 <Text style={generalStyles.authorTitle}>
                     {item.author}
                 </Text>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('MyStack', {screen: 'Details', params: {item}})}
+                    onPress={() => navigation.navigate('MyStack', { screen: 'Details', params: { item } })}
                     style={styles.readMoreButton}>
                     <Text style={styles.readMore}>Read More</Text>
                 </TouchableOpacity>
