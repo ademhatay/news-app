@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Article</title>
+</head>
+<body>
+    <h1>Add Article</h1>
+    <form id="articleForm">
+        <label for="id">ID:</label><br>
+        <input type="number" id="id" name="id" required><br>
+
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="desc">Description:</label><br>
+        <textarea id="desc" name="desc" rows="4" required></textarea><br>
+
+        <label for="image">Image URL:</label><br>
+        <input type="text" id="image" name="image" required><br>
+
+        <label for="author">Author:</label><br>
+        <input type="text" id="author" name="author" required><br>
+
+        <label for="authorImage">Author Image URL:</label><br>
+        <input type="text" id="authorImage" name="authorImage"><br>
+
+        <label for="popular">Popular:</label><br>
+        <input type="checkbox" id="popular" name="popular"><br>
+
+        <label for="date">Date:</label><br>
+        <input type="datetime-local" id="date" name="date" required><br>
+
+        <label for="lang">Language:</label><br>
+        <select id="lang" name="lang" required>
+            <option value="tr">Türkçe</option>
+            <option value="en">English</option>
+            <option value="ar">Arabic</option>
+        </select><br>
+
+        <label for="main">Main:</label><br>
+        <input type="checkbox" id="main" name="main"><br>
+
+        <label for="feed">Feed:</label><br>
+        <textarea id="feed" name="feed" rows="6" required></textarea><br>
+
+        <label for="banner">Banner:</label><br>
+        <input type="checkbox" id="banner" name="banner"><br>
+
+        <label for="last">Last:</label><br>
+        <input type="checkbox" id="last" name="last"><br>
+
+        <input type="submit" value="Add Article">
+    </form>
+
+    <script>
+        document.getElementById("articleForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const response = await fetch("http://localhost:5000/api/feeds", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+            });
+
+            if (response.ok) {
+                alert("Article added successfully!");
+                form.reset();
+            } else {
+                alert("Failed to add article.");
+            }
+        });
+    </script>
+</body>
+</html>
