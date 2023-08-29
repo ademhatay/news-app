@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "news-app",
-    "slug": "news-app",
+    "slug": "newsapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,23 +11,41 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "permission": [
-      "VIBRATE"
-    ],
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/icon.png"
+      },
+      "package": "com.ademhatay.newsApp",
+      "versionCode": 1,
+      "buildType": "apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "supportsRTL": true,
+      "eas": {
+        "projectId": "d895913c-f965-4e70-9978-4716b2209f17"
+      }
+    },
+    "plugins": [
+      "expo-localization",
+      [
+        "expo-updates",
+        {
+          "username": "ademhatay"
+        }
+      ]
+    ],
+    "owner": "ademhatay"
   }
 }

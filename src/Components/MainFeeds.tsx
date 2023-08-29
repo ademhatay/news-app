@@ -5,6 +5,9 @@ import { style as generalStyles } from '../Config/style'
 
 import Line from "./Line"
 
+import {t} from '../lang/_i18n'
+import { useFeeds } from "../Contexts/FeedsContext"
+
 
 
 
@@ -14,6 +17,9 @@ type Props = {
 }
 
 const MainFeeds: FC<Props> = ({ item, navigation }) => {
+
+    const { language }: any = useFeeds();
+
     return <>
         <View style={styles.container}>
             {item.image ? <Image source={{ uri: item.image }} style={styles.image} /> : null}
@@ -31,7 +37,9 @@ const MainFeeds: FC<Props> = ({ item, navigation }) => {
                 <TouchableOpacity
                     onPress={() => navigation.navigate('MyStack', { screen: 'Details', params: { item } })}
                     style={styles.readMoreButton}>
-                    <Text style={styles.readMore}>Read More</Text>
+                    <Text style={styles.readMore}>
+                        {t('readMore', {locale: language})}
+                    </Text>
                 </TouchableOpacity>
             </View>
             <Line style={{ backgroundColor: '#ddd', marginTop: 30 }} />

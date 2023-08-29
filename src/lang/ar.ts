@@ -1,0 +1,27 @@
+const ar = {
+    hello: 'مرحبا',
+    featured: 'مميز',
+    popular: 'شعبي',
+    search: 'بحث',
+    notFound: 'غير موجود',
+    noFavorites: 'لا يوجد مفضلة',
+    settings: 'الإعدادات',
+    language: 'لغة',
+    home: 'الصفحة الرئيسية',
+    favorites: 'المفضلة',
+    login: 'تسجيل الدخول',
+    register: 'تسجيل',
+    close: 'أغلق',
+    readMore: 'اقرأ المزيد',
+    copyright: "جميع الحقوق محفوظة © 2023 Hitatek",
+    corporate: "شركة",
+    jobs: "وظائف",
+    pressRelases: "البيانات الصحفية",
+    documentary: "وثائقي",
+    submissons: "المقترحات",
+    contactUs: "اتصل بنا",
+    aboutUs: "معلومات عنا",
+    save: "حفظ",
+    
+  };
+  export default ar;

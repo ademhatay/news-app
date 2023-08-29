@@ -5,13 +5,16 @@ import { useFeeds } from '../Contexts/FeedsContext'
 import { MainFeeds } from '../Components'
 
 
+import { t } from '../lang/_i18n'
+
+
 type Props = {
   [x: string]: any
 }
 
 const FavoriteScreen: FC<Props> = ({ navigation }) => {
 
-  const { favorites }: any = useFeeds();
+  const { favorites, language }: any = useFeeds();
 
   return <>
     <Screen>
@@ -19,7 +22,9 @@ const FavoriteScreen: FC<Props> = ({ navigation }) => {
         <View style={{ paddingBottom: 50 }}>
           {
             favorites.length === 0 ? <View style={styles.container}>
-            <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#BFC3C9', textAlign: 'center', marginTop: 20 }}>No Favorites</Text>
+            <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#BFC3C9', textAlign: 'center', marginTop: 20 }}>
+              {t('noFavorites', {locale: language})}
+            </Text>
           </View> : favorites.map((item: any, index: number) => {
             return <MainFeeds key={index} item={item} navigation={navigation} />
           })

@@ -1,8 +1,14 @@
-import React, { FC } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { FC, useEffect } from 'react'
+import { I18nManager, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Screen from './Screen'
 import { useFeeds } from '../Contexts/FeedsContext'
 import { BannerFeed, Footer, Indicator, LastFeeds, Line, MainFeeds, PopularFeeds } from '../Components'
+
+import i18n, { t } from '../lang/_i18n'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getLocales } from 'expo-localization'
+
+
 
 type Props = {
   [x: string]: any
@@ -11,6 +17,26 @@ type Props = {
 const HomeScreen: FC<Props> = ({ navigation }) => {
 
   const data: any = useFeeds();
+
+  const getLocalLanguage = async () => {
+    try {
+      const language = await AsyncStorage.getItem('language');
+      if (language) {
+        data.setLanguage(language);
+      } else {
+        const locales = getLocales();
+        data.setLanguage(locales[0].languageCode);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    data.getFeeds();
+    getLocalLanguage();
+  }, [])
+
 
   return <>
     <Screen>
@@ -22,7 +48,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
           <View >
 
             <Text style={{ fontSize: 26, color: '#22262A', marginBottom: 10, padding: 20, paddingBottom: 0, textTransform: 'uppercase', letterSpacing: 2 }}>
-              Featured
+              {t('featured', { locale: data.language })}
             </Text>
             {
               data.feeds.filter((item: any) => item.main).map((item: any, index: number) => {
@@ -34,7 +60,7 @@ const HomeScreen: FC<Props> = ({ navigation }) => {
             <Line />
 
             <Text style={{ fontSize: 26, color: '#22262A', marginBottom: 10, padding: 20, paddingBottom: 0, textTransform: 'uppercase', letterSpacing: 2 }}>
-              Popular
+              {t('popular', { locale: data.language })}
             </Text>
 
             {

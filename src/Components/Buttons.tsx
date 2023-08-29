@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, I18nManager, Text } from 'react-native';
 import { PanResponder } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFeeds } from '../Contexts/FeedsContext';
@@ -13,7 +13,8 @@ type Props = {
 export default function Buttons({ navigation, item }: Props) {
 
 
-    const {favorites, setFavorites}: any = useFeeds();
+
+    const { favorites, setFavorites }: any = useFeeds();
 
     const leftPosition = useRef(new Animated.Value(0)).current;
     const rightPosition = useRef(new Animated.Value(0)).current;
@@ -23,17 +24,36 @@ export default function Buttons({ navigation, item }: Props) {
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderMove: (e, gestureState) => {
-            if (gestureState.dx > 0) {
-                if (gestureState.dx <= maxSlideDistance) {
-                    rightPosition.setValue(-gestureState.dx);
-                } else {
-                    rightPosition.setValue(-maxSlideDistance);
+            const isRTL = I18nManager.isRTL;
+
+            if (!isRTL) {
+                if (gestureState.dx > 0) {
+                    if (gestureState.dx <= maxSlideDistance) {
+                        rightPosition.setValue(-gestureState.dx);
+                    } else {
+                        rightPosition.setValue(-maxSlideDistance);
+                    }
+                } else if (gestureState.dx < 0) {
+                    if (gestureState.dx >= -maxSlideDistance) {
+                        leftPosition.setValue(gestureState.dx);
+                    } else {
+                        leftPosition.setValue(-maxSlideDistance);
+                    }
                 }
-            } else if (gestureState.dx < 0) {
-                if (gestureState.dx >= -maxSlideDistance) {
-                    leftPosition.setValue(gestureState.dx);
-                } else {
-                    leftPosition.setValue(-maxSlideDistance);
+            } else {
+                // Handle RTL case here
+                if (gestureState.dx < 0) {
+                    if (-gestureState.dx <= maxSlideDistance) {
+                        rightPosition.setValue(gestureState.dx);
+                    } else {
+                        rightPosition.setValue(maxSlideDistance);
+                    }
+                } else if (gestureState.dx > 0) {
+                    if (gestureState.dx <= maxSlideDistance) {
+                        leftPosition.setValue(-gestureState.dx);
+                    } else {
+                        leftPosition.setValue(maxSlideDistance);
+                    }
                 }
             }
         },
@@ -48,17 +68,45 @@ export default function Buttons({ navigation, item }: Props) {
                 useNativeDriver: false
             }).start();
 
-            if (gestureState.dx > 0 && gestureState.dx > 50) {
-                // push to favorite list but save other data
-                setFavorites([
-                    ...favorites,
-                    item
-                ]);
+            // if (gestureState.dx > 0 && gestureState.dx > 50) {
+            //     setFavorites([
+            //         ...favorites,
+            //         item
+            //     ]);
 
-                navigation.navigate('Favorite')
-            }
-            else if (gestureState.dx < 0 && gestureState.dx < -50) {
-                navigation.goBack();
+            //     navigation.navigate('Favorite')
+            // }
+            // else if (gestureState.dx < 0 && gestureState.dx < -50) {
+            //     navigation.goBack();
+            // }
+
+            // yukarıdaki kodu RTL için de düzenleyelim
+            const isRTL = I18nManager.isRTL;
+
+            if (!isRTL) {
+                if (gestureState.dx > 0 && gestureState.dx > 50) {
+                    setFavorites([
+                        ...favorites,
+                        item
+                    ]);
+
+                    navigation.navigate('Favorite')
+                }
+                else if (gestureState.dx < 0 && gestureState.dx < -50) {
+                    navigation.goBack();
+                }
+            } else {
+                if (gestureState.dx < 0 && gestureState.dx < -50) {
+                    setFavorites([
+                        ...favorites,
+                        item
+                    ]);
+
+                    navigation.navigate('Favorite')
+                }
+                else if (gestureState.dx > 0 && gestureState.dx > 50) {
+                    navigation.goBack();
+                }
             }
 
         }
@@ -67,7 +115,9 @@ export default function Buttons({ navigation, item }: Props) {
     return (
         <View style={styles.container}>
             <Animated.View style={[styles.left, { left: leftPosition }]} {...panResponder.panHandlers}>
-                <Ionicons name="ios-arrow-back" size={35} color="white" />
+               {
+                    I18nManager.isRTL ? <Ionicons name="ios-arrow-forward" size={35} color="white" /> : <Ionicons name="ios-arrow-back" size={35} color="white" /> 
+               }
             </Animated.View>
 
             <Animated.View style={[styles.right, { right: rightPosition }]} {...panResponder.panHandlers}>
@@ -77,7 +127,6 @@ export default function Buttons({ navigation, item }: Props) {
     );
 }
 
-// Rest of styles here
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -89,7 +138,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     left: {
-        marginRight: 30,
+        marginEnd: 30,
         backgroundColor: '#005D99',
         width: 50,
         height: 50,
@@ -98,7 +147,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     right: {
-        marginLeft: 30,
+        marginStart: 30,
         backgroundColor: 'red',
         width: 50,
         height: 50,

@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, FC, useEffect } from "react";
+import { getLocales } from 'expo-localization';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 // i use any type everywhere because i don't have time to write types for this project
@@ -16,11 +18,42 @@ const Provider: FC<Props> = ({ children }) => {
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(true);
 
+	const [language, setLanguage] = useState('');
+
+
+
+	// get localstorage language
+	const getLanguage = async () => {
+		const language = await AsyncStorage.getItem('language');
+		if (language !== null && language !== undefined) {
+			setLanguage(language);
+		} else {
+			const locales = getLocales();
+			setLanguage(locales[0].languageCode);
+		}
+	}
+	useEffect(() => {
+		getLanguage();
+		getFeeds();
+	}, [])
+
+
+
+
+
+	// language
+
+
+
 	const getFeeds = async () => {
 		try {
-			const response = await fetch('http://192.168.1.220:5000/api/feeds');
+			const response = await fetch('https://news-app-backend-yw97.onrender.com/api/feeds');
+
 			const data = await response.json();
-			setFeeds(data);
+
+			const filtered = language ? data.filter((item: any) => item.lang === language) : data;
+
+			setFeeds(filtered);
 			setLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -29,7 +62,7 @@ const Provider: FC<Props> = ({ children }) => {
 
 	const searchFeeds = async (search: string) => {
 		try {
-			const response = await fetch(`http://192.168.1.220:5000/api/feeds?search=${search}`);
+			const response = await fetch(`https://news-app-backend-yw97.onrender.com/api/feeds?search=${search}`);
 			const data = await response.json();
 			setLoading(false);
 
@@ -39,19 +72,17 @@ const Provider: FC<Props> = ({ children }) => {
 		}
 	}
 
-	useEffect(() => {
-		getFeeds();
-	}, [])
-
-
 	const values = {
+		getFeeds,
 		feeds,
 		setFeeds,
 		favorites,
 		setFavorites,
 		loading,
 		setLoading,
-		searchFeeds
+		searchFeeds,
+		language,
+		setLanguage
 	}
 
 	return (

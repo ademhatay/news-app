@@ -3,12 +3,16 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import AppModal from './AppModal';
 
+import { t } from '../lang/_i18n'
+import { useFeeds } from '../Contexts/FeedsContext';
 
 type Props = {
     navigation: any
 }
 
 const Header: FC<Props> = ({ navigation }) => {
+
+    const { language }: any = useFeeds();
 
     const [modalVisible, setModalVisible] = useState(false)
 
@@ -29,44 +33,58 @@ const Header: FC<Props> = ({ navigation }) => {
                 onPress={navigatePage.bind(null, 'Home')}
                 style={styles.itemContainer}>
                 <Ionicons name="ios-home" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Home</Text>
+                <Text style={styles.itemTitle}>
+                    {t('home', {locale: language})}
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 onPress={navigatePage.bind(null, 'Search')}
                 style={styles.itemContainer}>
                 <Ionicons name="ios-search" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Search</Text>
+                <Text style={styles.itemTitle}>
+                    {t('search', {locale: language})}
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 onPress={navigatePage.bind(null, 'Favorite')}
                 style={styles.itemContainer}>
                 <Ionicons name="ios-heart" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Favorite</Text>
+                <Text style={styles.itemTitle}>
+                    {t('favorites', {locale: language})}
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 onPress={navigatePage.bind(null, 'Settings')}
                 style={styles.itemContainer}>
                 <Ionicons name="ios-settings" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Settings</Text>
+                <Text style={styles.itemTitle}>
+                    {t('settings', {locale: language})}
+                </Text>
             </TouchableOpacity>
 
             <View style={styles.line} />
             <TouchableOpacity style={styles.itemContainer}>
                 <Ionicons name="ios-log-in" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Login</Text>
+                <Text style={styles.itemTitle}>
+                    {t('login', {locale: language})}
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.itemContainer}>
                 <Ionicons name="ios-person-add" size={24} color="#005D99" />
-                <Text style={styles.itemTitle}>Register</Text>
+                <Text style={styles.itemTitle}>
+                    {t('register', {locale: language})}
+                </Text>
             </TouchableOpacity>
             <View style={styles.line} />
             <TouchableOpacity style={[styles.itemContainer, { backgroundColor: '#393E46', borderRadius: 15, paddingVertical: 5 }]} onPress={() => setModalVisible(!modalVisible)}>
                 <Ionicons name="ios-close" size={24} color="white" />
-                <Text style={[styles.itemTitle, { color: 'white' }]}>Close</Text>
+                <Text style={[styles.itemTitle, { color: 'white' }]}>
+                    {t('close', {locale: language})}
+                </Text>
             </TouchableOpacity>
         </AppModal>
     </>
