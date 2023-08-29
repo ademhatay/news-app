@@ -6,6 +6,9 @@ react native news app
 ### Backend
 https://news-app-backend-yw97.onrender.com/api/feeds Backend bu adreste çalışıyor.
 
+## Android Paket (Apk)
+https://drive.google.com/file/d/1OniBgoWi1FxDSKfhS2Qt4pKHiY1CwS5t/view?usp=sharing
+
 
 ## Ekran Görüntüleri
 <img src="https://github.com/ademhatay/news-app/assets/66277966/987898a3-0201-4681-baad-fbf26681c527" width="300" />
