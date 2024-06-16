@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, FC, useEffect } from "react";
 import { getLocales } from 'expo-localization';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { data, FeedData, searchData } from "./data";
 
 // i use any type everywhere because i don't have time to write types for this project
 // this error type is not important for now.
@@ -14,7 +14,7 @@ type Props = {
 
 const Provider: FC<Props> = ({ children }) => {
 
-	const [feeds, setFeeds] = useState([]);
+	const [feeds, setFeeds] = useState<FeedData[]>([]);
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -45,33 +45,17 @@ const Provider: FC<Props> = ({ children }) => {
 
 
 
-	const getFeeds = async () => {
-		try {
-			const response = await fetch('https://news-app-backend-yw97.onrender.com/api/feeds');
+	const getFeeds = () => {
+		const filtered = language ? data.filter((item: FeedData) => item.lang === language) : data;
+		setFeeds(filtered);
+		setLoading(false);
+	  };
 
-			const data = await response.json();
-
-			const filtered = language ? data.filter((item: any) => item.lang === language) : data;
-
-			setFeeds(filtered);
-			setLoading(false);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	const searchFeeds = async (search: string) => {
-		try {
-			const response = await fetch(`https://news-app-backend-yw97.onrender.com/api/feeds?search=${search}`);
-			const data = await response.json();
-			setLoading(false);
-
-			return data;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
+	  const searchFeeds = (search:any) => {
+		const filtered = searchData(search, data);
+		setFeeds(filtered);
+		setLoading(false);
+	  };
 	const values = {
 		getFeeds,
 		feeds,

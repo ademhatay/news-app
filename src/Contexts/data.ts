@@ -1,4 +1,34 @@
-export const data = [
+
+export type FeedData = {
+    id: number;
+    title: string;
+    desc?: string;
+    image: string;
+    author: string;
+    authorImage?: string;
+    popular: boolean;
+    date: string;
+    lang: string;
+    main?: boolean;
+    feed?: string;
+    last?: boolean;
+    banner?: boolean;
+  };
+
+  export const searchData = (search: string, data: any[]) => {
+    if (!search) {
+      return data;
+    }
+  
+    const searchTerm = search.toLowerCase();
+    return data.filter(
+      (item: { title: string; desc: string; }) =>
+        item.title.toLowerCase().includes(searchTerm) ||
+        item.desc?.toLowerCase().includes(searchTerm)
+    );
+  };
+
+export const data: FeedData[] = [
     {
         "id": 1,
         "title": "Celebrate Kamala Harris, but don’t stop applying pressure to the system",
@@ -199,7 +229,6 @@ export const data = [
             "desc": "Müslüman Pro ve Müslüman Mingle veri toplama ortaya çıkarmaları, 9/11 den bu yana Amerikan Müslümanlarının gözetim gerçekleriyle uyumludur.",
             "image": "https://images.unsplash.com/photo-1584359983106-ef9366f27454?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1864&q=80",
             "author": "Waqas Mirza",
-            "authorImage": null,
             "popular": false,
             "date": "13-12-2022T09:30:00.000Z",
             "lang": "tr",
@@ -208,10 +237,8 @@ export const data = [
         {
             "id": 15,
             "title": "Kriket - Hindistan ın Pakistan a Karşı Tek Etkili Silahı",
-            "desc": null,
-            "image": null,
+            "image": '',
             "author": "Ahsan Butt",
-            "authorImage": null,
             "popular": true,
             "date": "13-12-2022T09:30:00.000Z",
             "lang": "tr"

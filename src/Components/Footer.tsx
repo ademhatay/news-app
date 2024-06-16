@@ -9,18 +9,17 @@ type Props = {
 const Footer: FC<Props> = () => {
     return <>
         <View style={styles.container}>
-            <Image source={require('../assets/footer.png')} style={{ width: 89, height: 14 }} />
+            <Image source={require('../assets/bg.png')} style={{ width: 89, height: 14 }} />
             <Text style={{ color: '#fff', fontSize: 14, marginVertical: 20 }}>
-                {
-                    t('copyright')
-                }
+                
+                   Copyright 2023 Adem Hatay
             </Text>
             <View>
                 <Text style={{ color: '#3FB6E5', fontSize: 18, marginBottom: 10, fontWeight: 'bold' }}>
                     {t('corporate')}
                 </Text>
                 <Text style={{ color: '#fff', fontSize: 14, marginBottom: 10 }}>
-                    {t('aboutUs')}
+                    About Us
                 </Text>
                 <Text style={{ color: '#fff', fontSize: 14, marginBottom: 10 }}>
                     {t('jobs')}

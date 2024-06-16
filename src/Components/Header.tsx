@@ -23,7 +23,7 @@ const Header: FC<Props> = ({ navigation }) => {
 
     return <>
         <View style={styles.container}>
-            <Image source={require('../assets/logo.png')} style={{ width: 40, height: 40, padding: 5, resizeMode: 'contain' }} />
+            <Image source={require('../assets/bg.png')} style={{ width: 40, height: 40, padding: 5, resizeMode: 'contain' }} />
             <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Ionicons name="menu" size={32} color="white" />
             </TouchableOpacity>
