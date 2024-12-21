@@ -3,12 +3,6 @@ react native news app
 ## Plan
 ![Screenshot from 2023-08-29 12-23-34](https://github.com/ademhatay/news-app/assets/66277966/9514713a-1545-4637-96ac-a17a866c6f67)
 
-### Backend
-https://news-app-backend-yw97.onrender.com/api/feeds Backend bu adreste çalışıyor.
-
-## Android Paket (Apk)
-https://drive.google.com/file/d/1OniBgoWi1FxDSKfhS2Qt4pKHiY1CwS5t/view?usp=sharing
-
 
 ## Ekran Görüntüleri
 <img src="https://github.com/ademhatay/news-app/assets/66277966/987898a3-0201-4681-baad-fbf26681c527" width="300" />
